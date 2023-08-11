@@ -91,5 +91,12 @@ public class Flight {
 	public void setCaptainName(String captainName) {
 		this.captainName = captainName;
 	}
+
+	@Override
+	public String toString() {
+		return "Flight [id=" + id + ", departureCity=" + departureCity + ", departureTime=" + departureTime
+				+ ", arrivalCity=" + arrivalCity + ", arrivalTime=" + arrivalTime + ", flightId=" + flightId
+				+ ", captainName=" + captainName + "]";
+	}
 	
 }
