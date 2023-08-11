@@ -1,6 +1,7 @@
 package pti.airplanes_mvc.model;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "flights")
@@ -35,6 +37,9 @@ public class Flight {
 	
 	@Column(name = "captain")
 	private String captainName;
+	
+	@Transient
+	private Long fligthTime;
 
 	public int getId() {
 		return id;
@@ -91,12 +96,17 @@ public class Flight {
 	public void setCaptainName(String captainName) {
 		this.captainName = captainName;
 	}
+	
+	public void calcFlightTime() {
+		
+		this.fligthTime = this.departureTime.until(this.arrivalTime, ChronoUnit.MINUTES);
+	}
 
 	@Override
 	public String toString() {
 		return "Flight [id=" + id + ", departureCity=" + departureCity + ", departureTime=" + departureTime
 				+ ", arrivalCity=" + arrivalCity + ", arrivalTime=" + arrivalTime + ", flightId=" + flightId
-				+ ", captainName=" + captainName + "]";
+				+ ", captainName=" + captainName + ", fligthTime=" + fligthTime + "]";
 	}
 	
 }

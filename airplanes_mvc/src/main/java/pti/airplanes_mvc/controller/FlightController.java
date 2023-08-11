@@ -27,5 +27,15 @@ public class FlightController {
 		
 		return "flights";
 	}
+	
+	@GetMapping("/flight/all/withflighttime")
+	public String getAllFlightsWithFlightTime(
+				Model model
+			) {
+		
+		model.addAttribute("flightList", service.getFlightsWithFlightTime());
+		
+		return "flights";
+	}
 
 }

@@ -26,4 +26,16 @@ public class FlightService {
 		return flightList;
 	}
 	
+	public List<Flight> getFlightsWithFlightTime() {
+		
+		List<Flight> flightList = dao.getAllFlights();
+		
+		for(Flight flight : flightList) {
+			
+			flight.calcFlightTime();
+		}
+		
+		return flightList;
+	}
+	
 }
