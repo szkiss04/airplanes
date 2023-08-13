@@ -37,6 +37,17 @@ public class FlightDao {
 		return allFlight;
 	}
 	
+	public List<Flight> getFlightsByDepartureCity(String departureCity) {
+		
+		Session session = factory.openSession();
+		
+		Query<Flight> query = session.createQuery("FROM Flight f WHERE f.departureCity = ?1", Flight.class);
+		query.setParameter(1, departureCity);
+		List<Flight> result = query.getResultList();
+		
+		return result;
+	}
+	
 	public List<FlightTimeOfCaptain> getTotalFlightTimesOfCaptains() {
 		
 		List<FlightTimeOfCaptain> flightTimes = new ArrayList<>();

@@ -18,7 +18,7 @@ public class Flight {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private int id;
+	private Integer id;
 	
 	@Column(name = "departure_city")
 	private String departureCity;
@@ -100,6 +100,44 @@ public class Flight {
 	public void calcFlightTime() {
 		
 		this.fligthTime = this.departureTime.until(this.arrivalTime, ChronoUnit.MINUTES);
+	}
+	
+	
+
+	@Override
+	public int hashCode() {
+		
+		int hashCode = id.hashCode() +
+					   departureCity.hashCode() +
+					   departureTime.hashCode() +
+					   arrivalCity.hashCode() +
+					   arrivalTime.hashCode() +
+					   flightId.hashCode() +
+					   captainName.hashCode();
+		return hashCode;
+	}
+
+	public boolean equals(Object otherObject) {
+		
+		boolean isEqual = false;
+		
+		if(otherObject instanceof Flight) {
+			
+			Flight other = (Flight)otherObject;
+			
+			if(this.id == other.getId() &&
+				this.departureCity.equals(other.getDepartureCity()) &&
+				this.departureTime.equals(other.getDepartureTime()) &&
+				this.arrivalCity.equals(other.getArrivalCity()) &&
+				this.arrivalTime.equals(other.getArrivalTime()) &&
+				this.flightId.equals(other.getFlightId()) &&
+				this.captainName.equals(other.getCaptainName())) {
+						
+				isEqual = true;
+			}
+		}
+		
+		return isEqual;
 	}
 
 	@Override

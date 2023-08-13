@@ -1,6 +1,8 @@
 package pti.airplanes_mvc.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,11 +15,13 @@ import pti.airplanes_mvc.model.FlightTimeOfCaptain;
 public class FlightService {
 	
 	private final FlightDao dao;
+	private final FlightsGraph graph;
 	
 	@Autowired
-	public FlightService(FlightDao dao) {
+	public FlightService(FlightDao dao, FlightsGraph graph) {
 		
 		this.dao = dao;
+		this.graph = graph;
 	}
 	
 	public List<Flight> getFlights() {
@@ -44,6 +48,33 @@ public class FlightService {
 		List<FlightTimeOfCaptain> flightTimeList = dao.getTotalFlightTimesOfCaptains();
 		
 		return flightTimeList;
+	}
+	
+	public Map<Flight, List<Flight>> getGraph() {
+		
+		graph.setFlightsList(getFlights());
+		return graph.getGraph();
+	}
+	
+	public List<List<Flight>> getPlan(String departureCity, String arrivalCity) {
+		
+		graph.setFlightsList(getFlights());
+		
+		List<Flight> possibleFlights = dao.getFlightsByDepartureCity(departureCity); 
+		List<List<Flight>> planList = new ArrayList<>();
+		
+		for(Flight flight : possibleFlights) {
+			
+			List<Flight> plan = new ArrayList<>();
+			graph.getRoutePlan(flight, arrivalCity, plan);
+			
+			if(!plan.isEmpty()) {
+				
+				planList.add(plan);
+			}
+		}
+		
+		return planList;
 	}
 	
 }
