@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import pti.airplanes_mvc.data.FlightDao;
 import pti.airplanes_mvc.model.Flight;
+import pti.airplanes_mvc.model.FlightTimeOfCaptain;
 
 @Service
 public class FlightService {
@@ -36,6 +37,13 @@ public class FlightService {
 		}
 		
 		return flightList;
+	}
+	
+	public List<FlightTimeOfCaptain> getAllCaptainsFlightTimes() {
+		
+		List<FlightTimeOfCaptain> flightTimeList = dao.getTotalFlightTimesOfCaptains();
+		
+		return flightTimeList;
 	}
 	
 }

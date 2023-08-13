@@ -37,5 +37,15 @@ public class FlightController {
 		
 		return "flights";
 	}
+	
+	@GetMapping("flight/captains/totalflighttimes")
+	public String getAllCaptainsTotalFlightTimes(
+				Model model
+			) {
+		
+		model.addAttribute("flightTimesList", service.getAllCaptainsFlightTimes());
+		
+		return "flight_times";
+	}
 
 }
