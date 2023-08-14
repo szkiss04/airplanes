@@ -1,5 +1,6 @@
 package pti.airplanes_mvc.service;
 
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -51,9 +52,9 @@ public class FlightService {
 		return flightTimeList;
 	}
 	
-	public List<List<Flight>> getPlan(String departureCity, String arrivalCity) {
+	public List<List<Flight>> getPlans(String departureCity, String arrivalCity) {
 		
-		graph.setFlightsList(getFlights());
+		graph.buildGraph(getFlights());
 		
 		List<Flight> possibleFlights = dao.getFlightsByDepartureCity(departureCity); 
 		List<List<Flight>> planList = new ArrayList<>();
@@ -96,6 +97,34 @@ public class FlightService {
 		}
 		
 		return departures.stream().toList();
+	}
+	
+	public List<String> whoCanGetBackDirectly() {
+		
+		List<Flight> allFlights = getFlights();
+		Set<String> captainNames = new HashSet<>();
+		
+		for(int index = 0; index < allFlights.size(); index++) {
+			
+			for(int compareIndex = 0; compareIndex < allFlights.size(); compareIndex++) {
+				
+				if(index != compareIndex) {
+					
+					Flight flightA = allFlights.get(index);
+					Flight flightB = allFlights.get(compareIndex);
+					
+					if(flightA.getCaptainName().equals(flightB.getCaptainName()) &&
+					   flightA.getArrivalCity().equals(flightB.getDepartureCity()) &&
+					   flightB.getArrivalCity().equals(flightA.getDepartureCity()) &&
+					   flightA.getArrivalTime().until(flightB.getDepartureTime(), ChronoUnit.MINUTES) > 0) {
+						
+						captainNames.add(flightA.getCaptainName());
+					}
+				}
+			}
+		}
+		
+		return captainNames.stream().toList();
 	}
 	
 }

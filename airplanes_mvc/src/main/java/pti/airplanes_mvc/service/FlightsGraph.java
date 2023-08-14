@@ -13,10 +13,9 @@ import pti.airplanes_mvc.model.Flight;
 @Component
 public class FlightsGraph {
 	
-	private List<Flight> flightsList;
 	private Map<Flight, List<Flight>> graph;
 
-	private Map<Flight, List<Flight>> buildGraph() {
+	public void buildGraph(List<Flight> flightsList) {
 		
 		Map<Flight, List<Flight>> graph = new HashMap<>();
 		
@@ -38,13 +37,7 @@ public class FlightsGraph {
 			
 		}
 		
-		return graph;
-	}
-
-	public void setFlightsList(List<Flight> flightsList) {
-		
-		this.flightsList = flightsList;
-		this.graph = buildGraph();
+		this.graph = graph;
 	}
 
 	public Map<Flight, List<Flight>> getGraph() {
@@ -57,25 +50,28 @@ public class FlightsGraph {
 		if(graph.get(departureFlight).isEmpty()) {
 			
 			if(departureFlight.getArrivalCity().equals(arrival)) {
-				
 				result.add(departureFlight);
 			}
+			
 		} else {
 			
 			result.add(departureFlight);
-			for(Flight adjacentFlight : graph.get(departureFlight)) {
+			
+			if(!departureFlight.getArrivalCity().equals(arrival)) {
 				
-				getRoutePlan(adjacentFlight, arrival, result);
-				
-				if(result.get(result.size()-1).getArrivalCity().equals(arrival)) {
+				for(Flight adjacentFlight : graph.get(departureFlight)) {
 					
-					break;
-				} else {
+					getRoutePlan(adjacentFlight, arrival, result);
 					
-					result.remove(result.size()-1);
+					if(result.get(result.size() - 1).getArrivalCity().equals(arrival)) {
+						
+						break;
+					} else {
+						
+						result.remove(result.size() - 1);
+					}
 				}
 			}
 		}
 	}
-	
 }

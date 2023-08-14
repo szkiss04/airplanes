@@ -45,6 +45,8 @@ public class FlightDao {
 		query.setParameter(1, departureCity);
 		List<Flight> result = query.getResultList();
 		
+		session.close();
+		
 		return result;
 	}
 	
@@ -73,7 +75,9 @@ public class FlightDao {
 					);
 		}
 		
+		session.close();
+		
 		return flightTimes;
 	}
-
+	
 }

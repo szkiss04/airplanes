@@ -63,12 +63,21 @@ public class FlightController {
 		model.addAttribute("allDeparture", service.getAllDeparture());
 		model.addAttribute("allDestination", service.getAllDestination());
 		
-		List<List<Flight>> plans = service.getPlan(departureCity, destinationCity);
-		System.out.println(plans);
+		List<List<Flight>> plans = service.getPlans(departureCity, destinationCity);
 		
 		model.addAttribute("plans", plans);
 		
 		return "planner";
+	}
+	
+	@GetMapping("/flights/directlyback")
+	public String showWhoCanFlyDirectlyBack(
+				Model model
+			) {
+		
+		model.addAttribute("captainNames", service.whoCanGetBackDirectly());
+		
+		return "who_can_fly_directly_back";
 	}
 
 }
