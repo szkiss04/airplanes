@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>All captains with total flight times</h1>
+
+<table>
+	<thead>
+		<th>Captain name</th>
+		<th>Total flight time</th>
+	</thead>
+	<tbody>
+		<tr th:each="flightTime : ${flightTimes}">
+			<td th:text="${flightTime.captainName}"></td>
+			<td th:text="${flightTime.flightTime}"></td>
+		</tr>
+	</tbody>
+</table>
+
+</body>
+</html>

@@ -22,7 +22,7 @@ public class FlightController {
 		this.service = service;
 	}
 	
-	@GetMapping("/flight/all")
+	@GetMapping("/flights")
 	public String getAllFlights(
 				Model model
 			) {
@@ -32,7 +32,7 @@ public class FlightController {
 		return "flights";
 	}
 	
-	@GetMapping("/flight/all/withflighttime")
+	@GetMapping("/flights/flighttime")
 	public String getAllFlightsWithFlightTime(
 				Model model
 			) {
@@ -43,17 +43,17 @@ public class FlightController {
 		return "flights";
 	}
 	
-	@GetMapping("flight/captains/totalflighttimes")
+	@GetMapping("flights/captains")
 	public String getAllCaptainsTotalFlightTimes(
 				Model model
 			) {
 		
-		model.addAttribute("flightTimesList", service.getAllCaptainsFlightTimes());
+		model.addAttribute("flightTimes", service.getAllCaptainsFlightTimes());
 		
-		return "flight_times";
+		return "captain_flight_times";
 	}
 	
-	@GetMapping("/flight/plan")
+	@GetMapping("/flights/plan")
 	public String getPlannerPage(
 				@RequestParam(name = "departure", defaultValue = "") String departureCity,
 				@RequestParam(name = "destination", defaultValue = "") String destinationCity,
