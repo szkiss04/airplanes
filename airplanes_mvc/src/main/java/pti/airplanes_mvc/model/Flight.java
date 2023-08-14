@@ -39,7 +39,7 @@ public class Flight {
 	private String captainName;
 	
 	@Transient
-	private Long fligthTime;
+	private Long flightTime;
 
 	public int getId() {
 		return id;
@@ -99,10 +99,16 @@ public class Flight {
 	
 	public void calcFlightTime() {
 		
-		this.fligthTime = this.departureTime.until(this.arrivalTime, ChronoUnit.MINUTES);
+		this.flightTime = this.departureTime.until(this.arrivalTime, ChronoUnit.MINUTES);
 	}
-	
-	
+
+	public Long getFlightTime() {
+		return flightTime;
+	}
+
+	public void setFlightTime(Long flightTime) {
+		this.flightTime = flightTime;
+	}
 
 	@Override
 	public int hashCode() {
@@ -144,7 +150,7 @@ public class Flight {
 	public String toString() {
 		return "Flight [id=" + id + ", departureCity=" + departureCity + ", departureTime=" + departureTime
 				+ ", arrivalCity=" + arrivalCity + ", arrivalTime=" + arrivalTime + ", flightId=" + flightId
-				+ ", captainName=" + captainName + ", fligthTime=" + fligthTime + "]";
+				+ ", captainName=" + captainName + ", flightTime=" + flightTime + "]";
 	}
 	
 }

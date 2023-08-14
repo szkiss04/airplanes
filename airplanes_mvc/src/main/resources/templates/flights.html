@@ -5,8 +5,32 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<h1>All flights in the database</h1>
 	
-	<p th:text="${flightList}"></p>
+	<table>
+			<thead>
+				<tr>
+					<th>Departure from</th>
+					<th>Departure time</th>
+					<th>Destination</th>
+					<th>Arrival time</th>
+					<th>Flight identifier</th>
+					<th>Captain</th>
+					<th th:if="${hasFlightTime}">Flight time</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="flight : ${flightList}">
+					<td th:text="${flight.departureCity}"></td>
+					<td th:text="${flight.departureTime}"></td>
+					<td th:text="${flight.arrivalCity}"></td>
+					<td th:text="${flight.arrivalTime}"></td>
+					<td th:text="${flight.flightId}"></td>
+					<td th:text="${flight.captainName}"></td>
+					<td th:if="${hasFlightTime}" th:text="${flight.flightTime}">Flight time</td>
+				</tr>
+			</tbody>
+		</table>
 
 </body>
 </html>

@@ -38,6 +38,7 @@ public class FlightController {
 			) {
 		
 		model.addAttribute("flightList", service.getFlightsWithFlightTime());
+		model.addAttribute("hasFlightTime", true);
 		
 		return "flights";
 	}
