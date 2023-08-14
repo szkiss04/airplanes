@@ -63,9 +63,9 @@ public class FlightsGraph {
 		} else {
 			
 			result.add(departureFlight);
-			for(Flight f : graph.get(departureFlight)) {
+			for(Flight adjacentFlight : graph.get(departureFlight)) {
 				
-				getRoutePlan(f, arrival, result);
+				getRoutePlan(adjacentFlight, arrival, result);
 				
 				if(result.get(result.size()-1).getArrivalCity().equals(arrival)) {
 					

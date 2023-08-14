@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Flight planner</h1>
+	<form action="/flight/plan" method="GET">
+		<label>
+			Departure:
+			<select name="departure">
+				<option th:each="city : ${allDeparture}" th:text="${city}" th:value="${city}"></option>
+			</select>
+		</label>
+		<label>
+			Destination:
+			<select name="destination">
+				<option th:each="city : ${allDestination}" th:text="${city}" th:value="${city}"></option>
+			</select>
+		</label>
+		<button type="submit">Search flight</button>
+	</form>
+	<p th:if="${plans.isEmpty}">Sorry, we haven't found any flights.</p>
+	<div th:if="${!plans.isEmpty()}">
+		<h2>Results:</h2>
+		<div th:each="plan : ${plans}">
+			<table>
+				<thead>
+					<tr>
+						<th>Departure from</th>
+						<th>Departure time</th>
+						<th>Destination</th>
+						<th>Arrival time</th>
+						<th>Flight identifier</th>
+						<th>Captain</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="flight : ${plan}">
+						<td th:text="${flight.departureCity}"></td>
+						<td th:text="${flight.departureTime}"></td>
+						<td th:text="${flight.arrivalCity}"></td>
+						<td th:text="${flight.arrivalTime}"></td>
+						<td th:text="${flight.flightId}"></td>
+						<td th:text="${flight.captainName}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

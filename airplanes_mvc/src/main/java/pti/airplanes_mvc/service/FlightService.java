@@ -1,8 +1,9 @@
 package pti.airplanes_mvc.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,12 +51,6 @@ public class FlightService {
 		return flightTimeList;
 	}
 	
-	public Map<Flight, List<Flight>> getGraph() {
-		
-		graph.setFlightsList(getFlights());
-		return graph.getGraph();
-	}
-	
 	public List<List<Flight>> getPlan(String departureCity, String arrivalCity) {
 		
 		graph.setFlightsList(getFlights());
@@ -75,6 +70,32 @@ public class FlightService {
 		}
 		
 		return planList;
+	}
+	
+	public List<String> getAllDestination() {
+		
+		List<Flight> allFlight = getFlights();
+		Set<String> destinations = new HashSet<>();
+		
+		for(Flight flight : allFlight) {
+			
+			destinations.add(flight.getArrivalCity());
+		}
+		
+		return destinations.stream().toList();
+	}
+	
+	public List<String> getAllDeparture() {
+		
+		List<Flight> allFlight = getFlights();
+		Set<String> departures = new HashSet<>();
+		
+		for(Flight flight : allFlight) {
+			
+			departures.add(flight.getDepartureCity());
+		}
+		
+		return departures.stream().toList();
 	}
 	
 }
